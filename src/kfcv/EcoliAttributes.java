@@ -16,10 +16,10 @@ public class EcoliAttributes {
 	
 		// System.out.println(size);
 		EcoliAttributes.attributeNames = attributeNames;
-
+		
 		if (min_attribute == null && max_attribute == null) {
-			min_attribute = new ArrayList<Float>(size);
-			max_attribute = new ArrayList<Float>(size);
+			min_attribute = new ArrayList<Float>(size-1);
+			max_attribute = new ArrayList<Float>(size-1);
 
 			for (int i = 0; i < size - 1; i++) {
 				min_attribute.add(Float.MAX_VALUE);
@@ -45,6 +45,15 @@ public class EcoliAttributes {
 		className = tokens[tokens.length - 1];
 	}
 
+	public void Normalize(){
+		float newValue;
+		for(int i= 0; i<attributeValue.size();i++){
+			newValue = (attributeValue.get(attributeNames[i])-min_attribute.get(i))/(max_attribute.get(i)-min_attribute.get(i));
+			attributeValue.replace(attributeNames[i],newValue);
+			
+		}				
+	}
+	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
@@ -55,7 +64,7 @@ public class EcoliAttributes {
 			Map.Entry pair = (Map.Entry) it.next();
 			// System.out.println(pair.getKey() + " = " + pair.getValue());
 			sb.append(pair.getKey() + " = " + pair.getValue() + "\n");
-			it.remove(); // avoids a ConcurrentModificationException
+			//it.remove(); // avoids a ConcurrentModificationException
 		}
 
 		sb.append("Class = " + className);
