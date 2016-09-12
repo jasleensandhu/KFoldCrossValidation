@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class EcoliAttributes {
+public class EcoliAttributes{
 	static ArrayList<Float> min_attribute = null;
 	static ArrayList<Float> max_attribute = null;
 	static String[] attributeNames;
@@ -13,8 +13,7 @@ public class EcoliAttributes {
 	public String className;
 
 	public EcoliAttributes(int size, String[] attributeNames) {
-	
-		// System.out.println(size);
+
 		EcoliAttributes.attributeNames = attributeNames;
 		
 		if (min_attribute == null && max_attribute == null) {
@@ -50,23 +49,18 @@ public class EcoliAttributes {
 		for(int i= 0; i<attributeValue.size();i++){
 			newValue = (attributeValue.get(attributeNames[i])-min_attribute.get(i))/(max_attribute.get(i)-min_attribute.get(i));
 			attributeValue.replace(attributeNames[i],newValue);
-			
 		}				
 	}
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		StringBuilder sb = new StringBuilder();
 
 		Iterator it = attributeValue.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
-			// System.out.println(pair.getKey() + " = " + pair.getValue());
 			sb.append(pair.getKey() + " = " + pair.getValue() + "\n");
-			//it.remove(); // avoids a ConcurrentModificationException
 		}
-
 		sb.append("Class = " + className);
 		return sb.toString();
 	}
